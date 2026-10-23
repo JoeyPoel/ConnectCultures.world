@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model CommunityMember {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  name            String
+  country         String
+  dreamCulture    String?
+  reflectionNote  String?
+  hasOfferedStay  Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([email])
+  @@index([country])
+}
+
+model CulturalNode {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  city        String
+  country     String
+  latitude    Float
+  longitude   Float
+  chapterNum  Int
+  title       String
+  summary     String
+  accentColor String
+  quote       String?
+  createdAt   DateTime @default(now())
+}
