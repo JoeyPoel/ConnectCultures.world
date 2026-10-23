@@ -288,7 +288,7 @@ export const CulturalStoryStream: React.FC = () => {
   const activeStory = COMMUNITY_STORIES[activeIndex] || COMMUNITY_STORIES[0];
 
   return (
-    <section id="community-stories" className="scroll-mt-24 py-24 px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden">
+    <section id="community-stories" className="scroll-mt-0 py-20 px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden">
       {/* Section Header */}
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-10">
         <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-monochrome-inkMuted mb-4">

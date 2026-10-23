@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Minimalist Inspiring Cultural Manifesto */}
           <p className="font-sans text-lg sm:text-xl text-stars-starlight/90 max-w-lg font-light leading-relaxed mb-8">
-            A stranger across any border is simply a friend you have not sat with yet.
+            A stranger is simply a friend you haven’t met yet.
             <span className="block mt-2 text-stars-nebula text-base">
               Opening living rooms and sharing tables across borders.
             </span>

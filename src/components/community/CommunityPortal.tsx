@@ -11,7 +11,7 @@ export const CommunityPortal: React.FC = () => {
   return (
     <section
       id="community-portal"
-      className="py-24 px-6 lg:px-12 max-w-7xl mx-auto"
+      className="scroll-mt-0 py-20 px-6 lg:px-12 max-w-7xl mx-auto"
     >
       {/* Header */}
       <div className="flex flex-col items-center mb-14 text-center max-w-3xl mx-auto">

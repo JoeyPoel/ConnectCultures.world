@@ -128,14 +128,22 @@ const REFLECTION_PAGES = [
 ];
 
 /**
- * Section 04: The Spark: Framer-grade Flowing Timeline & Archival Expedition.
+ * Props for FoundingStorySection.
+ */
+interface FoundingStorySectionProps {
+  /** Optional callback to navigate smoothly to the Connect Hub chapter. */
+  onExploreCommunity?: () => void;
+}
+
+/**
+ * Section 02: The Spark: Framer-grade Flowing Timeline & Archival Expedition.
  * Features:
  * - Flowing interactive progress rail with connected timeline nodes
  * - Archival photographic memory card with dynamic 3D perspective mouse tilt
  * - Synchronized field dispatches and interactive cultural relic widgets
  * - Smooth crossfade transitions with Framer Motion spring physics
  */
-export const FoundingStorySection: React.FC = () => {
+export const FoundingStorySection: React.FC<FoundingStorySectionProps> = ({ onExploreCommunity }) => {
   const [activeIdx, setActiveIdx] = useState<number>(1);
   const [direction, setDirection] = useState<number>(1);
   const [dialValue, setDialValue] = useState<number>(80);
@@ -209,7 +217,7 @@ export const FoundingStorySection: React.FC = () => {
   }, [activeIdx]);
 
   return (
-    <section id="founding-story" className="scroll-mt-24 py-28 px-6 lg:px-16 max-w-7xl mx-auto">
+    <section id="founding-story" className="scroll-mt-0 py-20 px-6 lg:px-16 max-w-7xl mx-auto">
       {/* Editorial Section Header */}
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone font-mono text-xs text-monochrome-ink uppercase tracking-wider mb-4 shadow-sm">
@@ -229,62 +237,60 @@ export const FoundingStorySection: React.FC = () => {
       {/* =========================================================================
           1. FRAMER FLOWING TIMELINE SCRUBBER RAIL
          ========================================================================= */}
-      <div className="relative mb-14 max-w-5xl mx-auto">
-        {/* Continuous Timeline Rail Track running directly through the middle of the 40px circles */}
-        <div className="absolute top-[32px] -translate-y-1/2 left-[28px] right-[28px] h-[2px] pointer-events-none z-0">
-          {/* Background Track Line */}
-          <div className="absolute inset-0 bg-monochrome-sandstone" />
-
-          {/* Animated Active Progress Line Fill */}
-          <motion.div
-            className="absolute top-0 bottom-0 left-0 bg-monochrome-ink"
-            initial={false}
-            animate={{
-              width: `${(activeIdx / (MILESTONES.length - 1)) * 100}%`,
-            }}
-            transition={{ type: "spring", stiffness: 220, damping: 25 }}
-          />
-        </div>
-
-        {/* Milestone Node Buttons */}
-        <div className="flex items-center justify-between gap-2 overflow-x-auto py-3 px-2 scrollbar-none relative z-10">
+      <div className="relative mb-14 max-w-4xl mx-auto">
+        {/* Milestone Nodes & Connecting Segments */}
+        <div className="grid grid-cols-5 relative py-2">
           {MILESTONES.map((m, idx) => {
             const isSelected = activeIdx === idx;
             return (
-              <button
-                key={m.id}
-                type="button"
-                onClick={() => handleSelect(idx)}
-                className="group relative flex flex-col items-center focus:outline-none shrink-0 cursor-pointer"
-                aria-label={`Jump to ${m.location}`}
-              >
-                {/* Milestone Node Circle */}
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-xs transition-all duration-300 relative z-10 ${
-                    isSelected
-                      ? "bg-monochrome-ink text-monochrome-pureWhite ring-4 ring-monochrome-sandstone scale-110 shadow-md font-bold"
-                      : "bg-monochrome-pureWhite border-2 border-monochrome-sandstone text-monochrome-inkMuted group-hover:border-monochrome-ink group-hover:text-monochrome-ink"
-                  }`}
-                >
-                  {m.num}
-                </div>
+              <div key={m.id} className="relative flex flex-col items-center">
+                {/* Connecting Rail Segment to next ball (stops cleanly at next ball, never passes it) */}
+                {idx < MILESTONES.length - 1 && (
+                  <div className="absolute top-[20px] -translate-y-1/2 left-1/2 w-full h-[2px] bg-monochrome-sandstone pointer-events-none z-0">
+                    <motion.div
+                      className="h-full bg-monochrome-ink origin-left"
+                      initial={false}
+                      animate={{ scaleX: idx < activeIdx ? 1 : 0 }}
+                      transition={{ type: "spring", stiffness: 240, damping: 26 }}
+                    />
+                  </div>
+                )}
 
-                {/* Milestone Year & City Subtitle */}
-                <div className="mt-2.5 text-center transition-colors">
-                  <span
-                    className={`block font-mono text-[11px] uppercase tracking-wider ${
+                {/* Milestone Node Button */}
+                <button
+                  type="button"
+                  onClick={() => handleSelect(idx)}
+                  className="group relative z-10 flex flex-col items-center focus:outline-none cursor-pointer w-full px-1"
+                  aria-label={`Jump to ${m.location}`}
+                >
+                  {/* Milestone Node Circle */}
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-xs transition-all duration-300 relative z-10 ${
                       isSelected
-                        ? "text-monochrome-ink font-bold"
-                        : "text-monochrome-inkMuted group-hover:text-monochrome-ink"
+                        ? "bg-monochrome-ink text-monochrome-pureWhite ring-4 ring-monochrome-sandstone scale-110 shadow-md font-bold"
+                        : "bg-monochrome-pureWhite border-2 border-monochrome-sandstone text-monochrome-inkMuted group-hover:border-monochrome-ink group-hover:text-monochrome-ink"
                     }`}
                   >
-                    {m.location.split(",")[0]}
-                  </span>
-                  <span className="block font-mono text-[9px] text-monochrome-inkMuted/70">
-                    {m.year}
-                  </span>
-                </div>
-              </button>
+                    {m.num}
+                  </div>
+
+                  {/* Milestone Year & City Subtitle */}
+                  <div className="mt-2.5 text-center transition-colors">
+                    <span
+                      className={`block font-mono text-[11px] uppercase tracking-wider ${
+                        isSelected
+                          ? "text-monochrome-ink font-bold"
+                          : "text-monochrome-inkMuted group-hover:text-monochrome-ink"
+                      }`}
+                    >
+                      {m.location.split(",")[0]}
+                    </span>
+                    <span className="block font-mono text-[9px] text-monochrome-inkMuted/70">
+                      {m.year}
+                    </span>
+                  </div>
+                </button>
+              </div>
             );
           })}
         </div>
@@ -608,6 +614,20 @@ export const FoundingStorySection: React.FC = () => {
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
+
+          {/* Onward Progression to Connect Hub */}
+          {onExploreCommunity && (
+            <div className="mt-10 flex flex-col items-center text-center">
+              <button
+                type="button"
+                onClick={onExploreCommunity}
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone hover:border-monochrome-ink text-xs font-mono font-semibold text-monochrome-ink uppercase tracking-wider transition-all shadow-sm active:scale-95 group"
+              >
+                <span>Continue to Connect Hub</span>
+                <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

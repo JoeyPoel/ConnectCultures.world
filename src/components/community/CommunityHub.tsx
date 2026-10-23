@@ -164,7 +164,7 @@ export const CommunityHub: React.FC = () => {
   });
 
   return (
-    <section id="community-hub" className="scroll-mt-24 py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+    <section id="community-hub" className="scroll-mt-0 py-20 px-6 lg:px-12 max-w-7xl mx-auto">
       {/* Editorial Header */}
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14">
         <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-monochrome-inkMuted mb-4">

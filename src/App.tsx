@@ -15,9 +15,9 @@ import { useScrollSpy } from "./hooks/useScrollSpy";
 const SECTION_IDS = [
   "vision",
   "philosophy",
+  "founding-story",
   "community-hub",
   "community-stories",
-  "founding-story",
   "community-portal",
 ];
 
@@ -29,6 +29,10 @@ export const App: React.FC = () => {
   const activeChapterId = useScrollSpy(SECTION_IDS, 0.3);
 
   const handleNavigateToChapter = useCallback((sectionId: string) => {
+    if (sectionId === "vision") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -60,23 +64,26 @@ export const App: React.FC = () => {
         <div className="relative z-20 bg-monochrome-editorialCanvas text-monochrome-ink rounded-t-[48px] sm:rounded-t-[72px] border-t border-monochrome-sandstone shadow-[0_-50px_100px_rgba(0,0,0,0.95)]">
           {/* 01. The Philosophy: Culture Shouldn't Feel Like A Foreign Barrier */}
           <PhilosophySection
+            onExploreStory={() => handleNavigateToChapter("founding-story")}
             onExploreCommunity={() => handleNavigateToChapter("community-hub")}
           />
 
           <SoftDivider />
 
-          {/* 02. Community Hub: Connect with Hosts, Dinners, and Salons */}
+          {/* 02. The Spark: Joey's Personal Journey in 1 Interactive Section */}
+          <FoundingStorySection
+            onExploreCommunity={() => handleNavigateToChapter("community-hub")}
+          />
+
+          <SoftDivider />
+
+          {/* 03. Community Hub: Connect with Hosts, Dinners, and Salons */}
           <CommunityHub />
 
           <SoftDivider />
 
-          {/* 03. Global Community Voices: Real Stories Across Borders */}
+          {/* 04. Global Community Voices: Real Stories Across Borders */}
           <CulturalStoryStream />
-
-          <SoftDivider />
-
-          {/* 04. The Spark: Joey's Personal Journey in 1 Interactive Section */}
-          <FoundingStorySection />
 
           <SoftDivider />
 

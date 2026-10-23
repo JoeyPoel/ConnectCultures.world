@@ -43,7 +43,7 @@ const PHILOSOPHY_ITEMS: PhilosophyItem[] = [
     title: "Culture is not a barrier. It is an open door.",
     subtitle:
       "Across the globe, living rooms sit with empty chairs while travelers wander lonely streets. We build the bridge that brings curious souls into authentic homes worldwide.",
-    quote: "A stranger across any border is simply a friend you have not sat with yet.",
+    quote: "A stranger is simply a friend you haven’t met yet.",
     location: "Istanbul & Oaxaca",
     imageUrl: "https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=1000&q=80",
   },
@@ -51,7 +51,13 @@ const PHILOSOPHY_ITEMS: PhilosophyItem[] = [
 
 const SPREAD = [0, -5, 4, -3];
 
+/**
+ * Props for PhilosophySection.
+ */
 interface PhilosophySectionProps {
+  /** Optional callback to jump directly to The Spark founding story chapter. */
+  onExploreStory?: () => void;
+  /** Optional callback to navigate to the Community Hub chapter. */
   onExploreCommunity?: () => void;
 }
 
@@ -63,7 +69,10 @@ interface PhilosophySectionProps {
  * - Synchronized animated text reveal with typography matching intellifai.nl
  * - Controls with previous/next triggers and progress bars
  */
-export const PhilosophySection: React.FC<PhilosophySectionProps> = ({ onExploreCommunity }) => {
+export const PhilosophySection: React.FC<PhilosophySectionProps> = ({
+  onExploreStory,
+  onExploreCommunity,
+}) => {
   const items = PHILOSOPHY_ITEMS;
   const n = items.length;
 
@@ -202,6 +211,22 @@ export const PhilosophySection: React.FC<PhilosophySectionProps> = ({ onExploreC
           <p className="font-sans text-sm sm:text-base text-monochrome-inkMuted leading-relaxed">
             <strong className="text-monochrome-ink">My founding journey chronicled below is completely the truth.</strong> Every meal shared, every foreign doorstep, and every friendship forged was real. We are inviting the brave, curious few to be our founding hosts and fellows to bring this vision into reality.
           </p>
+
+          {onExploreStory && (
+            <div className="mt-5 pt-4 border-t border-monochrome-sandstone flex flex-wrap items-center justify-between gap-3">
+              <span className="font-mono text-xs text-monochrome-inkMuted">
+                Skip straight to the true stories that started it all:
+              </span>
+              <button
+                type="button"
+                onClick={onExploreStory}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-monochrome-ink text-monochrome-pureWhite hover:bg-monochrome-ink/90 font-mono text-xs font-semibold uppercase tracking-wider transition-all shadow-sm active:scale-95 group"
+              >
+                <span>Skip to The Spark (Founder Journey)</span>
+                <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* 2-Column StackSlider Layout: Left Narrative & Controls, Right 3D Card Deck */}
@@ -277,16 +302,28 @@ export const PhilosophySection: React.FC<PhilosophySectionProps> = ({ onExploreC
                 ))}
               </div>
 
-              {/* CTA Action */}
-              {onExploreCommunity && (
-                <button
-                  type="button"
-                  onClick={onExploreCommunity}
-                  className="px-6 py-2.5 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone hover:border-monochrome-ink text-xs font-mono font-semibold text-monochrome-ink transition-all shadow-sm"
-                >
-                  Explore Community →
-                </button>
-              )}
+              {/* CTA Actions */}
+              <div className="flex items-center gap-3">
+                {onExploreStory && (
+                  <button
+                    type="button"
+                    onClick={onExploreStory}
+                    className="px-5 py-2.5 rounded-full bg-monochrome-ink text-monochrome-pureWhite hover:bg-monochrome-ink/90 text-xs font-mono font-semibold transition-all shadow-sm active:scale-95 flex items-center gap-1.5"
+                  >
+                    <span>The Spark</span>
+                    <span>↓</span>
+                  </button>
+                )}
+                {onExploreCommunity && (
+                  <button
+                    type="button"
+                    onClick={onExploreCommunity}
+                    className="px-5 py-2.5 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone hover:border-monochrome-ink text-xs font-mono font-semibold text-monochrome-ink transition-all shadow-sm active:scale-95"
+                  >
+                    Connect Hub →
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 

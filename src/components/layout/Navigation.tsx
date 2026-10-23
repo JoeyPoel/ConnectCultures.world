@@ -9,9 +9,9 @@ interface NavigationProps {
 const NAV_ITEMS = [
   { id: "vision", label: "Vision", num: "00" },
   { id: "philosophy", label: "Philosophy", num: "01" },
-  { id: "community-hub", label: "Connect Hub", num: "02" },
-  { id: "community-stories", label: "Global Voices", num: "03" },
-  { id: "founding-story", label: "The Spark", num: "04" },
+  { id: "founding-story", label: "The Spark", num: "02" },
+  { id: "community-hub", label: "Connect Hub", num: "03" },
+  { id: "community-stories", label: "Global Voices", num: "04" },
   { id: "community-portal", label: "Join Collective", num: "05" },
 ];
 
