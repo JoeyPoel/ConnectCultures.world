@@ -81,7 +81,7 @@ export const GrainOverlay: React.FC = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-5 w-full h-full opacity-35 mix-blend-screen will-change-transform"
+      className="pointer-events-none absolute inset-0 -z-5 w-full h-full opacity-35 mix-blend-screen will-change-transform"
     />
   );
 };

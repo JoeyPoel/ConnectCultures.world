@@ -1,6 +1,5 @@
-import React, { useCallback } from "react";
-import TerraDusk from "./components/originkit/TerraDusk";
-import GrainOverlay from "./components/common/GrainOverlay";
+import React, { useState, useCallback } from "react";
+import SiteLoader from "./components/common/SiteLoader";
 import SoftDivider from "./components/common/SoftDivider";
 import Navigation from "./components/layout/Navigation";
 import Footer from "./components/layout/Footer";
@@ -26,6 +25,7 @@ const SECTION_IDS = [
  * Dedicated to company vision, global community connections, and 1 consolidated founding journey section.
  */
 export const App: React.FC = () => {
+  const [isSiteLoaded, setIsSiteLoaded] = useState<boolean>(false);
   const activeChapterId = useScrollSpy(SECTION_IDS, 0.3);
 
   const handleNavigateToChapter = useCallback((sectionId: string) => {
@@ -40,28 +40,31 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-dusk-void text-monochrome-vellum font-sans selection:bg-terracotta-base/35 selection:text-monochrome-vellum overflow-x-clip">
-      {/* Living Atmospheric Canvas Layers */}
-      <TerraDusk intensity="high" />
-      <GrainOverlay />
+    <div className="relative min-h-screen bg-monochrome-editorialCanvas text-monochrome-ink font-sans selection:bg-terracotta-base/35 selection:text-monochrome-vellum overflow-x-clip">
+      {/* Cinematic Earth Particle Gimbal Opening Loader */}
+      <SiteLoader onLoaded={() => setIsSiteLoaded(true)} />
 
-      {/* Floating Glass Navigation Header */}
-      <Navigation
-        activeChapterId={activeChapterId}
-        onNavigate={handleNavigateToChapter}
-      />
+      {/* Floating Glass Navigation Header - Smoothly fades in once site loader dissolves */}
+      <div
+        className={`transition-opacity duration-1000 ease-out ${
+          isSiteLoaded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <Navigation
+          activeChapterId={activeChapterId}
+          onNavigate={handleNavigateToChapter}
+        />
+      </div>
 
       {/* Main Experience Stream */}
-      <main className="relative z-10">
-        {/* 00. Hero Section: Sticky Full-Screen Viewport in Deep Space & 3D Earth Globe */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
-          <HeroSection
-            onExploreChapter={handleNavigateToChapter}
-          />
-        </div>
+      <main className="relative">
+        {/* 00. Hero Section: Self-contained Deep Space & Earth Globe (Vision) */}
+        <HeroSection
+          onExploreChapter={handleNavigateToChapter}
+        />
 
-        {/* 01-05. The Human Editorial Canvas (Full-Screen Curtain Takeover from Dark Universe) */}
-        <div className="relative z-20 bg-monochrome-editorialCanvas text-monochrome-ink rounded-t-[48px] sm:rounded-t-[72px] border-t border-monochrome-sandstone shadow-[0_-50px_100px_rgba(0,0,0,0.95)]">
+        {/* 01-05. The Human Editorial Canvas (Editorial Stream) */}
+        <div className="relative z-10 bg-monochrome-editorialCanvas text-monochrome-ink rounded-t-[36px] sm:rounded-t-[60px] border-t border-monochrome-sandstone shadow-[0_-30px_70px_rgba(0,0,0,0.4)]">
           {/* 01. The Philosophy: Culture Shouldn't Feel Like A Foreign Barrier */}
           <PhilosophySection
             onExploreStory={() => handleNavigateToChapter("founding-story")}

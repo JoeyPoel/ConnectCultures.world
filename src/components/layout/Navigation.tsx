@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Globe, Menu, X } from "lucide-react";
+import { NAV_STRINGS } from "../../constants/string";
 
 interface NavigationProps {
   activeChapterId: string;
   onNavigate: (chapterId: string) => void;
 }
-
-const NAV_ITEMS = [
-  { id: "vision", label: "Vision", num: "00" },
-  { id: "philosophy", label: "Philosophy", num: "01" },
-  { id: "founding-story", label: "The Spark", num: "02" },
-  { id: "community-hub", label: "Connect Hub", num: "03" },
-  { id: "community-stories", label: "Global Voices", num: "04" },
-  { id: "community-portal", label: "Join Collective", num: "05" },
-];
 
 /**
  * Floating adaptive header component with Connect Cultures branding.
@@ -78,14 +70,14 @@ export const Navigation: React.FC<NavigationProps> = ({ activeChapterId, onNavig
                 isDarkSection ? "text-monochrome-vellum" : "text-monochrome-ink"
               }`}
             >
-              Connect Cultures
+              {NAV_STRINGS.brand}
             </span>
             <span
               className={`font-mono text-[10px] tracking-widest uppercase block mt-0.5 transition-colors ${
                 isDarkSection ? "text-earth-cyan" : "text-monochrome-inkMuted"
               }`}
             >
-              Global Cultural Collective
+              {NAV_STRINGS.brandSubtitle}
             </span>
           </div>
         </button>
@@ -98,7 +90,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeChapterId, onNavig
               : "bg-monochrome-pureWhite border border-monochrome-sandstone backdrop-blur-md shadow-sm"
           }`}
         >
-          {NAV_ITEMS.map((item) => {
+          {NAV_STRINGS.items.map((item) => {
             const isActive = activeChapterId === item.id;
             return (
               <button
@@ -132,7 +124,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeChapterId, onNavig
                 ? "bg-space-surface border border-stars-hairline text-stars-starlight"
                 : "bg-monochrome-pureWhite border border-monochrome-sandstone text-monochrome-ink shadow-sm"
             }`}
-            aria-label="Toggle navigation menu"
+            aria-label={NAV_STRINGS.menuAriaLabel}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -149,7 +141,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeChapterId, onNavig
                 : "bg-monochrome-pureWhite border border-monochrome-sandstone shadow-xl"
             }`}
           >
-            {NAV_ITEMS.map((item) => {
+            {NAV_STRINGS.items.map((item) => {
               const isActive = activeChapterId === item.id;
               return (
                 <button

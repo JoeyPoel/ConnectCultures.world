@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { AMBIENT_STRINGS } from "../../constants/string";
 
 interface AmbientAudioProps {
   className?: string;
@@ -129,7 +130,7 @@ export const AmbientAudio: React.FC<AmbientAudioProps> = ({ className = "" }) =>
       <button
         type="button"
         onClick={togglePlayback}
-        aria-label={isPlaying ? "Mute ambient audio" : "Play ambient audio"}
+        aria-label={isPlaying ? AMBIENT_STRINGS.ariaMute : AMBIENT_STRINGS.ariaPlay}
         className="group relative flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-dusk-surface/80 border border-monochrome-hairline hover:border-terracotta-base/60 backdrop-blur-md transition-all duration-300 shadow-sm hover:shadow-glow-terracotta"
       >
         <span className="relative flex h-2 w-2">
@@ -150,7 +151,7 @@ export const AmbientAudio: React.FC<AmbientAudioProps> = ({ className = "" }) =>
         )}
 
         <span className="text-xs font-mono tracking-wider uppercase text-monochrome-vellum/80 group-hover:text-monochrome-vellum">
-          {isPlaying ? "Dusk Soundscape" : "Audio Muted"}
+          {isPlaying ? AMBIENT_STRINGS.playingLabel : AMBIENT_STRINGS.mutedLabel}
         </span>
       </button>
 
@@ -168,7 +169,7 @@ export const AmbientAudio: React.FC<AmbientAudioProps> = ({ className = "" }) =>
               masterGainRef.current.gain.setValueAtTime(val, audioCtxRef.current.currentTime);
             }
           }}
-          aria-label="Audio volume"
+          aria-label={AMBIENT_STRINGS.volumeAria}
           className="w-16 h-1 accent-terracotta-base bg-dusk-surface rounded-lg appearance-none cursor-pointer"
         />
       )}

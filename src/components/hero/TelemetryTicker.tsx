@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Compass, Clock, Radio } from "lucide-react";
+import { TELEMETRY_STRINGS } from "../../constants/string";
 
 interface TelemetryTickerProps {
   currentLocation?: string;
@@ -10,8 +11,8 @@ interface TelemetryTickerProps {
  * Geographic telemetry ticker displaying real-time coordinate tracking and UTC/local timestamp.
  */
 export const TelemetryTicker: React.FC<TelemetryTickerProps> = ({
-  currentLocation = "NETHERLANDS",
-  coordinates = "52.6800° N, 5.0300° E",
+  currentLocation = TELEMETRY_STRINGS.defaultLocation,
+  coordinates = TELEMETRY_STRINGS.defaultCoordinates,
 }) => {
   const [currentTime, setCurrentTime] = useState<string>("");
 

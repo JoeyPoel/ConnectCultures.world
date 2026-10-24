@@ -22,7 +22,7 @@ export const TerraDusk: React.FC<TerraDuskLayerProps> = ({
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none fixed inset-0 overflow-hidden -z-10 ${className}`}
+      className={`pointer-events-none absolute inset-0 overflow-hidden -z-10 ${className}`}
     >
       {/* Deep Cosmic Void */}
       <div className="absolute inset-0 bg-space-void" />

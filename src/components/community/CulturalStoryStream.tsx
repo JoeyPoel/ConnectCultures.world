@@ -1,87 +1,10 @@
 import React, { useState, useRef, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { Quote, ChevronLeft, ChevronRight, MapPin, Sparkles, MoveHorizontal } from "lucide-react";
+import { STORY_STREAM_STRINGS, CulturalStoryString } from "../../constants/string";
 
-interface CulturalStory {
-  id: string;
-  author: string;
-  originCountry: string;
-  experiencedCulture: string;
-  location: string;
-  oneLiner: string;
-  reflection: string;
-  category: string;
-  imageUrl: string;
-}
-
-const COMMUNITY_STORIES: CulturalStory[] = [
-  {
-    id: "story-1",
-    author: "Elena Rostova",
-    originCountry: "Poland",
-    experiencedCulture: "Andalusia",
-    location: "Ronda, Spain",
-    oneLiner: "I spoke ten words of Spanish. They fed me fresh figs and laughed with their hands.",
-    reflection: "When you stop trying to be perfect, strangers become grandmothers. In the hills of Ronda, silence wasn't awkward; it was peaceful.",
-    category: "Homestay",
-    imageUrl: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "story-2",
-    author: "Tariq Mansour",
-    originCountry: "Egypt",
-    experiencedCulture: "North Holland",
-    location: "Alkmaar, Netherlands",
-    oneLiner: "Cairo noise dissolved into quiet apple pie. Stillness became home.",
-    reflection: "Every home in the world has a warm kitchen if you dare to knock. The rain against the Dutch windows felt like music after years of sand.",
-    category: "Table Fellowship",
-    imageUrl: "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "story-3",
-    author: "Mateusz Kowalski",
-    originCountry: "Poland",
-    experiencedCulture: "Istanbul",
-    location: "Kadikoy, Turkey",
-    oneLiner: "Tea on the Bosphorus with strangers sharing roasted chestnuts.",
-    reflection: "Tea in Turkey is not a beverage; it is a solemn covenant of respect. Sitting by the ferry docks, we solved the world's problems in broken English.",
-    category: "Street Dialogue",
-    imageUrl: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "story-4",
-    author: "Sofia Hernandez",
-    originCountry: "Spain",
-    experiencedCulture: "Warsaw",
-    location: "Warsaw, Poland",
-    oneLiner: "They shared the Christmas wafer and called me their daughter.",
-    reflection: "Bloodlines do not make family; open doors and shared bread do. Snow was falling outside, but inside that old apartment was pure light.",
-    category: "Kinship",
-    imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "story-5",
-    author: "Kenji & Amina",
-    originCountry: "Japan",
-    experiencedCulture: "Morocco",
-    location: "Fes Medina, Morocco",
-    oneLiner: "Three hours carving cedar without a shared word, only rhythmic nods.",
-    reflection: "Craft is the original human language that predates borders. When hands work together on wood, words are entirely secondary.",
-    category: "Artisanal Craft",
-    imageUrl: "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: "story-6",
-    author: "Lukas Lindqvist",
-    originCountry: "Sweden",
-    experiencedCulture: "Oaxaca",
-    location: "Oaxaca, Mexico",
-    oneLiner: "Grinding roasted cacao with Doña Carmen before dawn over stone.",
-    reflection: "Taste memory anchors you to a land deeper than any photograph ever could. The aroma of smoked chili and cinnamon will stay forever.",
-    category: "Culinary Roots",
-    imageUrl: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=800&q=80",
-  },
-];
+type CulturalStory = CulturalStoryString;
+const COMMUNITY_STORIES = STORY_STREAM_STRINGS.stories;
 
 function clamp(v: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, v));
@@ -293,21 +216,21 @@ export const CulturalStoryStream: React.FC = () => {
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-10">
         <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-monochrome-inkMuted mb-4">
           <span className="w-8 h-[1.5px] bg-monochrome-ink inline-block" />
-          <span>THE ASPIRATION • STORIES WE ARE GATHERING</span>
+          <span>{STORY_STREAM_STRINGS.kicker}</span>
         </div>
 
         <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-monochrome-ink mb-3 leading-[1.12]">
-          Voices Across Borders.
+          {STORY_STREAM_STRINGS.headline}
         </h2>
 
         <p className="font-sans text-base sm:text-lg text-monochrome-inkMuted font-light italic leading-relaxed max-w-2xl">
-          These narratives capture the exact spirit, depth, and vulnerability of the human encounters we are setting out to accomplish. We don't have live community voices published yet; these are the story archetypes of what we are building. If you have lived a moment like this, help us ignite the movement.
+          {STORY_STREAM_STRINGS.subtitle}
         </p>
 
         {/* Drag Hint Pill */}
         <div className="inline-flex items-center gap-2 mt-5 px-3.5 py-1 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone text-[11px] font-mono text-monochrome-inkMuted shadow-sm">
           <MoveHorizontal className="w-3.5 h-3.5 text-monochrome-ink" />
-          <span>Drag or click to explore story archetypes</span>
+          <span>{STORY_STREAM_STRINGS.dragHint}</span>
         </div>
       </div>
 
@@ -350,7 +273,7 @@ export const CulturalStoryStream: React.FC = () => {
           onClick={handlePrev}
           disabled={activeIndex === 0}
           className="w-10 h-10 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone flex items-center justify-center text-monochrome-ink hover:border-monochrome-ink disabled:opacity-30 disabled:pointer-events-none transition-all shadow-sm"
-          aria-label="Previous story"
+          aria-label={STORY_STREAM_STRINGS.prevAria}
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -367,7 +290,7 @@ export const CulturalStoryStream: React.FC = () => {
                   ? "w-8 bg-monochrome-ink"
                   : "w-2 bg-monochrome-sandstone hover:bg-monochrome-inkMuted"
               }`}
-              aria-label={`Jump to story ${i + 1}`}
+              aria-label={`${STORY_STREAM_STRINGS.jumpAriaPrefix} ${i + 1}`}
             />
           ))}
         </div>
@@ -377,7 +300,7 @@ export const CulturalStoryStream: React.FC = () => {
           onClick={handleNext}
           disabled={activeIndex === total - 1}
           className="w-10 h-10 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone flex items-center justify-center text-monochrome-ink hover:border-monochrome-ink disabled:opacity-30 disabled:pointer-events-none transition-all shadow-sm"
-          aria-label="Next story"
+          aria-label={STORY_STREAM_STRINGS.nextAria}
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -408,7 +331,7 @@ export const CulturalStoryStream: React.FC = () => {
                 <span>{activeStory.originCountry} in {activeStory.location}</span>
                 <span>•</span>
                 <span className="px-2 py-0.5 rounded-full bg-monochrome-editorialCanvas border border-monochrome-sandstone text-[10px] text-monochrome-ink font-semibold">
-                  Archetype • {activeStory.category}
+                  {activeStory.category}
                 </span>
               </div>
             </div>
@@ -419,7 +342,7 @@ export const CulturalStoryStream: React.FC = () => {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-monochrome-ink hover:bg-monochrome-ink/90 text-monochrome-pureWhite font-sans text-xs font-semibold tracking-wide transition-all shadow-sm shrink-0 self-start md:self-center"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Submit Your Real Story</span>
+            <span>{STORY_STREAM_STRINGS.submitStoryButton}</span>
           </a>
         </motion.div>
       </AnimatePresence>

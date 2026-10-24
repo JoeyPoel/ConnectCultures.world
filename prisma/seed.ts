@@ -61,7 +61,7 @@ const culturalNodes = [
     title: "The Slavic Heart & Prom Night",
     summary: "Studniówka formal dance, learning conversational Polish, and experiencing profound Slavic generosity.",
     accentColor: "amber-flame",
-    quote: "Czuć się jak w domu — feeling truly at home in a foreign family.",
+    quote: "Czuć się jak w domu: feeling truly at home in a foreign family.",
   },
   {
     slug: "varna-bulgaria",

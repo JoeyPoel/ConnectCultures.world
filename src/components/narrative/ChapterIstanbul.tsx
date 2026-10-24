@@ -75,15 +75,14 @@ export const ChapterIstanbul: React.FC = () => {
           </p>
 
           <p>
-            At Hagia Sophia, we navigated through three strict security layers and customs gates ordinarily closed
-            to outside visitors. Inside, beneath monumental Byzantine golden mosaics and Arabic calligraphy shields,
-            I met a female Islamic scholar.
+            At Hagia Sophia, I had to pass through three police checkpoints and talk with the female imam
+            to convince them to grant entry since I was not Muslim.
           </p>
 
           <p>
-            We sat together on the floor for hours, discussing faith, morality, and our shared human kinship.
-            Before parting ways, she gifted me my first Quran. That book remains on my desk in the Netherlands,
-            and I continue to read and meditate upon its wisdom to this day.
+            Inside, beneath monumental Byzantine domes and Ottoman calligraphy medallions, I received my first Quran
+            and sat reading it right there on the carpets. It was an unforgettable encounter rooted in mutual respect.
+            After that, because I showed genuine reverence, I was welcomed to visit and enter every mosque across Istanbul.
           </p>
         </div>
 

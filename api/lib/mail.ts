@@ -70,7 +70,7 @@ export async function sendWelcomeEmail(params: WelcomeEmailParams): Promise<{ se
     const data = await resend.emails.send({
       from: "Joey van der Poel <welcome@connectcultures.world>",
       to: [params.email],
-      subject: "Welcome to Beyond The Bubble — A Shared Horizon",
+      subject: "Welcome to Beyond The Bubble: A Shared Horizon",
       html: htmlContent,
     });
     return { sent: true, messageId: data.data?.id };

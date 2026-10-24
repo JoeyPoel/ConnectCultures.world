@@ -46,6 +46,15 @@ export const TerraDuskGlobe: React.FC<TerraDuskGlobeProps> = ({
         <div className="w-[450px] sm:w-[560px] h-[450px] sm:h-[560px] rounded-full blur-[110px] bg-earth-atmosphere/25 animate-horizon-breathe will-change-transform" />
       </div>
 
+      {/* High-Resolution Photorealistic Earth Backdrop / Instant Fallback */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-5">
+        <img
+          src="/images/globe/earth-globe.jpg"
+          alt="Earth Globe"
+          className="w-[420px] sm:w-[500px] h-[420px] sm:h-[500px] object-cover rounded-full shadow-[0_0_80px_rgba(79,168,255,0.35)] opacity-95"
+        />
+      </div>
+
       {/* OriginKit WebGL Photorealistic Earth Canvas (Only active when in viewport) */}
       <div className="w-full h-full flex items-center justify-center">
         {isInView && (

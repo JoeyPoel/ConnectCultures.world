@@ -1,5 +1,6 @@
 import React from "react";
 import { Compass, Camera } from "lucide-react";
+import { IMAGE_FRAME_STRINGS } from "../../constants/string";
 
 interface ImageFrameProps {
   label: string;
@@ -63,7 +64,7 @@ export const ImageFrame: React.FC<ImageFrameProps> = ({
       {caption && (
         <figcaption className="px-5 py-3.5 bg-monochrome-pureWhite border-t border-monochrome-sandstone font-sans text-xs text-monochrome-inkMuted flex items-center justify-between">
           <span>{caption}</span>
-          <span className="font-mono text-[10px] text-monochrome-ink tracking-wider uppercase font-semibold">ARCHIVE VERIFIED</span>
+          <span className="font-mono text-[10px] text-monochrome-ink tracking-wider uppercase font-semibold">{IMAGE_FRAME_STRINGS.verifiedBadge}</span>
         </figcaption>
       )}
     </figure>

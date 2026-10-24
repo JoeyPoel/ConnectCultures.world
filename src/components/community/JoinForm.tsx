@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CheckCircle2, AlertCircle, Loader2, Send, Sparkles } from "lucide-react";
 import { CommunityJoinPayload } from "../../types/community.types";
 import LanyardPass from "./LanyardPass";
+import { JOIN_FORM_STRINGS } from "../../constants/string";
 
 interface JoinFormProps {
   onSuccess?: () => void;
@@ -31,17 +32,17 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
     setFeedback(null);
 
     if (!formData.name.trim()) {
-      setFeedback({ type: "error", message: "Please enter your name." });
+      setFeedback({ type: "error", message: JOIN_FORM_STRINGS.errorName });
       return;
     }
 
     if (!formData.email.trim() || !formData.email.includes("@")) {
-      setFeedback({ type: "error", message: "Please enter a valid email." });
+      setFeedback({ type: "error", message: JOIN_FORM_STRINGS.errorEmail });
       return;
     }
 
     if (!formData.country.trim()) {
-      setFeedback({ type: "error", message: "Please enter your country." });
+      setFeedback({ type: "error", message: JOIN_FORM_STRINGS.errorCountry });
       return;
     }
 
@@ -59,7 +60,7 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
       if (response.ok && data.success) {
         setFeedback({
           type: "success",
-          message: data.message || "Welcome. You have taken the step.",
+          message: data.message || JOIN_FORM_STRINGS.defaultSuccess,
         });
         setFormData({
           name: "",
@@ -72,14 +73,14 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
       } else {
         setFeedback({
           type: "error",
-          message: data.error || "Unable to join. Please try again.",
+          message: data.error || JOIN_FORM_STRINGS.defaultError,
         });
       }
     } catch (err) {
       console.error("Join error:", err);
       setFeedback({
         type: "info",
-        message: "You have joined the waitlist. Welcome to Connect Cultures.",
+        message: JOIN_FORM_STRINGS.fallbackSuccess,
       });
       if (onSuccess) onSuccess();
     } finally {
@@ -108,13 +109,13 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
         <div className="space-y-1 mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-monochrome-editorialCanvas border border-monochrome-sandstone font-mono text-[10px] uppercase tracking-wider text-monochrome-ink mb-2">
             <Sparkles className="w-3 h-3" />
-            <span>Founding Fellowship • Pioneer Seat</span>
+            <span>{JOIN_FORM_STRINGS.badge}</span>
           </div>
           <h3 className="font-serif text-2xl sm:text-3xl font-normal text-monochrome-ink tracking-tight">
-            Claim Your Founding Pass
+            {JOIN_FORM_STRINGS.title}
           </h3>
           <p className="font-sans text-sm text-monochrome-inkMuted font-light italic">
-            Step in at Day Zero. Apply to be an inaugural pioneer host in your city or join our first wave of global cultural fellows.
+            {JOIN_FORM_STRINGS.description}
           </p>
         </div>
 
@@ -143,13 +144,13 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
             htmlFor="name"
             className="block font-mono text-xs uppercase tracking-wider text-monochrome-ink font-semibold"
           >
-            Your Full Name
+            {JOIN_FORM_STRINGS.nameLabel}
           </label>
           <input
             id="name"
             type="text"
             required
-            placeholder="e.g. Elena Rostova"
+            placeholder={JOIN_FORM_STRINGS.namePlaceholder}
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="w-full px-4 py-3 rounded-xl bg-monochrome-editorialCanvas border border-monochrome-sandstone focus:border-monochrome-ink focus:bg-monochrome-pureWhite text-monochrome-ink placeholder:text-monochrome-inkMuted/50 outline-none text-sm font-sans transition-colors"
@@ -162,13 +163,13 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
             htmlFor="email"
             className="block font-mono text-xs uppercase tracking-wider text-monochrome-ink font-semibold"
           >
-            Email Address
+            {JOIN_FORM_STRINGS.emailLabel}
           </label>
           <input
             id="email"
             type="email"
             required
-            placeholder="email@domain.com"
+            placeholder={JOIN_FORM_STRINGS.emailPlaceholder}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             className="w-full px-4 py-3 rounded-xl bg-monochrome-editorialCanvas border border-monochrome-sandstone focus:border-monochrome-ink focus:bg-monochrome-pureWhite text-monochrome-ink placeholder:text-monochrome-inkMuted/50 outline-none text-sm font-sans transition-colors"
@@ -181,13 +182,13 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
             htmlFor="country"
             className="block font-mono text-xs uppercase tracking-wider text-monochrome-ink font-semibold"
           >
-            Your Country of Residence
+            {JOIN_FORM_STRINGS.countryLabel}
           </label>
           <input
             id="country"
             type="text"
             required
-            placeholder="e.g. Poland, Netherlands, Spain..."
+            placeholder={JOIN_FORM_STRINGS.countryPlaceholder}
             value={formData.country}
             onChange={(e) => setFormData({ ...formData, country: e.target.value })}
             className="w-full px-4 py-3 rounded-xl bg-monochrome-editorialCanvas border border-monochrome-sandstone focus:border-monochrome-ink focus:bg-monochrome-pureWhite text-monochrome-ink placeholder:text-monochrome-inkMuted/50 outline-none text-sm font-sans transition-colors"
@@ -200,12 +201,12 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
             htmlFor="dreamCulture"
             className="block font-mono text-xs uppercase tracking-wider text-monochrome-ink font-semibold"
           >
-            What culture do you want to experience from within?
+            {JOIN_FORM_STRINGS.dreamCultureLabel}
           </label>
           <input
             id="dreamCulture"
             type="text"
-            placeholder="e.g. Polish family life, Cairo hospitality, Andalusian village..."
+            placeholder={JOIN_FORM_STRINGS.dreamCulturePlaceholder}
             value={formData.dreamCulture}
             onChange={(e) => setFormData({ ...formData, dreamCulture: e.target.value })}
             className="w-full px-4 py-3 rounded-xl bg-monochrome-editorialCanvas border border-monochrome-sandstone focus:border-monochrome-ink focus:bg-monochrome-pureWhite text-monochrome-ink placeholder:text-monochrome-inkMuted/50 outline-none text-sm font-sans transition-colors"
@@ -225,7 +226,7 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
             htmlFor="hasOfferedStay"
             className="font-sans text-xs text-monochrome-inkMuted cursor-pointer select-none"
           >
-            I want to apply to be an inaugural Founding Host (opening my kitchen table, salon, or home).
+            {JOIN_FORM_STRINGS.hostCheckbox}
           </label>
         </div>
 
@@ -241,7 +242,7 @@ export const JoinForm: React.FC<JoinFormProps> = ({ onSuccess }) => {
             ) : (
               <Send className="w-4 h-4" />
             )}
-            <span>{loading ? "Registering..." : "Claim Founding Boarding Pass"}</span>
+            <span>{loading ? JOIN_FORM_STRINGS.submittingButton : JOIN_FORM_STRINGS.submitButton}</span>
           </button>
         </div>
       </form>

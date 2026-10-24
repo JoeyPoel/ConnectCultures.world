@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Globe, Plane, ShieldCheck } from "lucide-react";
+import { LANYARD_STRINGS } from "../../constants/string";
 
 interface LanyardPassProps {
   attendeeName?: string;
@@ -61,11 +62,11 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
     return `M 194 0 C 194 ${cpY}, ${targetX + 7} ${targetY * 0.75}, ${targetX + 5} ${targetY}`;
   });
 
-  const displayName = attendeeName.trim() ? attendeeName.toUpperCase() : "YOUR NAME";
-  const displayCountry = country.trim() ? country.toUpperCase() : "YOUR COUNTRY";
+  const displayName = attendeeName.trim() ? attendeeName.toUpperCase() : LANYARD_STRINGS.defaultName;
+  const displayCountry = country.trim() ? country.toUpperCase() : LANYARD_STRINGS.defaultCountry;
   const displayCulture = dreamCulture.trim()
     ? dreamCulture.toUpperCase()
-    : "YOUR DESTINATION";
+    : LANYARD_STRINGS.defaultCulture;
 
   return (
     <div
@@ -192,12 +193,12 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-monochrome-vellum" />
               <span className="font-mono text-xs font-bold tracking-widest uppercase">
-                CONNECT CULTURES
+                {LANYARD_STRINGS.headerBrand}
               </span>
             </div>
 
             <span className="font-mono text-[10px] tracking-wider uppercase bg-monochrome-pureWhite/20 px-2 py-0.5 rounded font-semibold">
-              BOARDING PASS
+              {LANYARD_STRINGS.headerType}
             </span>
           </div>
 
@@ -206,23 +207,23 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
           {/* Flight, Gate & Seat Row */}
           <div className="grid grid-cols-3 gap-2 pb-3 border-b border-monochrome-sandstone text-center font-mono text-xs">
             <div>
-              <span className="text-[9px] text-monochrome-inkMuted uppercase block">JOURNEY</span>
-              <span className="font-bold text-monochrome-ink">CC-EXPEDITION</span>
+              <span className="text-[9px] text-monochrome-inkMuted uppercase block">{LANYARD_STRINGS.journeyLabel}</span>
+              <span className="font-bold text-monochrome-ink">{LANYARD_STRINGS.journeyValue}</span>
             </div>
             <div>
-              <span className="text-[9px] text-monochrome-inkMuted uppercase block">PORTAL</span>
-              <span className="font-bold text-monochrome-ink">HEARTH</span>
+              <span className="text-[9px] text-monochrome-inkMuted uppercase block">{LANYARD_STRINGS.portalLabel}</span>
+              <span className="font-bold text-monochrome-ink">{LANYARD_STRINGS.portalValue}</span>
             </div>
             <div>
-              <span className="text-[9px] text-monochrome-inkMuted uppercase block">SEAT</span>
-              <span className="font-bold text-monochrome-ink">OPEN TABLE</span>
+              <span className="text-[9px] text-monochrome-inkMuted uppercase block">{LANYARD_STRINGS.seatLabel}</span>
+              <span className="font-bold text-monochrome-ink">{LANYARD_STRINGS.seatValue}</span>
             </div>
           </div>
 
           {/* Passenger Name */}
           <div>
             <span className="font-mono text-[10px] text-monochrome-inkMuted uppercase tracking-wider block mb-0.5">
-              PASSENGER • BEARER
+              {LANYARD_STRINGS.passengerLabel}
             </span>
             <h3 className="font-serif text-2xl font-bold tracking-tight text-monochrome-ink break-words leading-tight">
               {displayName}
@@ -233,7 +234,7 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
           <div className="flex items-center justify-between gap-3 p-3 rounded-xl bg-monochrome-editorialCanvas border border-monochrome-sandstone">
             <div className="min-w-0 flex-1 pr-1">
               <span className="font-mono text-[9px] text-monochrome-inkMuted uppercase block">
-                ORIGIN
+                {LANYARD_STRINGS.originLabel}
               </span>
               <span className="font-mono text-[11px] font-bold text-monochrome-ink block break-words leading-tight">
                 {displayCountry}
@@ -242,12 +243,12 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
 
             <div className="flex flex-col items-center text-monochrome-inkMuted px-2 flex-shrink-0">
               <Plane className="w-3.5 h-3.5 rotate-90 text-monochrome-ink" />
-              <span className="font-mono text-[8px] uppercase tracking-widest mt-0.5 text-monochrome-inkMuted">GLOBAL</span>
+              <span className="font-mono text-[8px] uppercase tracking-widest mt-0.5 text-monochrome-inkMuted">{LANYARD_STRINGS.globalTag}</span>
             </div>
 
             <div className="min-w-0 flex-1 pl-1 text-right">
               <span className="font-mono text-[9px] text-monochrome-inkMuted uppercase block">
-                DESTINATION
+                {LANYARD_STRINGS.destinationLabel}
               </span>
               <span className="font-mono text-[11px] font-bold text-monochrome-ink block break-words leading-tight">
                 {displayCulture}
@@ -259,19 +260,19 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
           <div className="grid grid-cols-2 gap-3 pt-1">
             <div>
               <span className="font-mono text-[9px] text-monochrome-inkMuted uppercase block">
-                CLASS • STATUS
+                {LANYARD_STRINGS.statusLabel}
               </span>
               <span className="font-mono text-xs font-semibold text-green-700 flex items-center gap-1 mt-0.5">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>{isHost ? "PIONEER HOST" : "FOUNDING FELLOW"}</span>
+                <span>{isHost ? LANYARD_STRINGS.statusHost : LANYARD_STRINGS.statusFellow}</span>
               </span>
             </div>
             <div>
               <span className="font-mono text-[9px] text-monochrome-inkMuted uppercase block">
-                BOARDING
+                {LANYARD_STRINGS.boardingLabel}
               </span>
               <span className="font-mono text-xs font-bold text-monochrome-ink mt-0.5 block">
-                PRIORITY ACCESS
+                {LANYARD_STRINGS.boardingValue}
               </span>
             </div>
           </div>
@@ -291,13 +292,13 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
         <div className="p-5 bg-monochrome-editorialCanvas/50 flex items-center justify-between">
           <div>
             <span className="font-mono text-[9px] text-monochrome-inkMuted uppercase block">
-              FELLOWSHIP PASS
+              {LANYARD_STRINGS.stubPassLabel}
             </span>
             <span className="font-mono text-xs font-bold text-monochrome-ink">
               {passNumber}
             </span>
             <span className="font-mono text-[8px] text-monochrome-inkMuted block mt-0.5">
-              NON-TRANSFERABLE • WORLDWIDE
+              {LANYARD_STRINGS.stubNotice}
             </span>
           </div>
 
@@ -313,7 +314,7 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
               ))}
             </div>
             <span className="font-mono text-[8px] text-monochrome-inkMuted tracking-widest mt-1">
-              CC-EXPEDITION
+              {LANYARD_STRINGS.stubBarcodeText}
             </span>
           </div>
         </div>
@@ -322,7 +323,7 @@ export const LanyardPass: React.FC<LanyardPassProps> = ({
 
       {/* Tactile Drag Hint */}
       <p className="font-mono text-[10px] text-monochrome-inkMuted text-center mt-4 tracking-wider uppercase">
-        Grab, drag & swing boarding pass
+        {LANYARD_STRINGS.dragHint}
       </p>
     </div>
   );

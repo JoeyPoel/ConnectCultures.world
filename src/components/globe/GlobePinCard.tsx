@@ -1,6 +1,7 @@
 import React from "react";
 import { CulturalCoordinate } from "../../types/story.types";
 import { Compass, Sparkles, ArrowRight } from "lucide-react";
+import { GLOBE_PIN_STRINGS } from "../../constants/string";
 
 interface GlobePinCardProps {
   coordinate: CulturalCoordinate;
@@ -56,7 +57,7 @@ export const GlobePinCard: React.FC<GlobePinCardProps> = ({
           onClick={() => onNavigateToChapter(coordinate.chapterId)}
           className="inline-flex items-center gap-2 font-sans text-xs font-semibold text-terracotta-glow hover:text-amber-flame transition-colors group"
         >
-          <span>Explore Chapter</span>
+          <span>{GLOBE_PIN_STRINGS.exploreChapter}</span>
           <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
         </button>
       )}

@@ -61,11 +61,11 @@ export const CHAPTERS: ChapterData[] = [
     coordinates: "41.0086° N, 28.9802° E",
     quote: "Faith, hospitality, and patience transcend every border.",
     quoteAuthor: "Founding Story",
-    leadParagraph: "Traveling to Istanbul with a Turkish-Dutch companion seeing his ancestral home for the first time. Navigating three security layers into Hagia Sophia, dialoguing with a female Islamic scholar, and receiving a sacred Quran.",
+    leadParagraph: "Traveling to Istanbul with a Turkish-Dutch companion seeing his ancestral home for the first time. Passing through three police checkpoints into Hagia Sophia, speaking with the female imam to enter as a non-Muslim, receiving his first Quran, and being welcomed into every mosque through genuine respect.",
     narrativeBody: [
-      "We visited every mosque together, taking off our shoes and inhaling the scent of wool carpets. I experienced the call to prayer not as an outside spectator, but as an invited soul.",
-      "At Hagia Sophia, we were guided through three strict security checkpoints ordinarily closed to foreign visitors.",
-      "Beneath monumental Byzantine domes and Ottoman calligraphy medallions, I sat on the carpets speaking for hours with a female Islamic scholar about faith, compassion, and human brotherhood. She gifted me my first Quran, which I continue to study and cherish.",
+      "At Hagia Sophia, I had to pass through three police checkpoints and talk with the female imam to convince them to let me enter since I was not Muslim.",
+      "Inside, beneath monumental domes and calligraphy medallions, I received my first Quran and sat reading it right there on the carpets.",
+      "After that, having shown sincere respect and open-hearted reverence, I was able to visit and enter every mosque across Istanbul, welcomed everywhere as an honored brother.",
     ],
     keyInsight: "When you enter a sacred space with reverent curiosity, you are never an intruder.",
   },
@@ -88,29 +88,7 @@ export const CHAPTERS: ChapterData[] = [
   },
 ];
 
-export const POLISH_PHRASES = [
-  {
-    phrase: "Dzień dobry",
-    phonetic: "jen DOH-brih",
-    meaning: "Good day / Hello",
-    culturalNote: "Formal yet warm greeting that acknowledges the dignity of the person before you.",
-  },
-  {
-    phrase: "Dziękuję bardzo",
-    phonetic: "jen-KOO-yeh BAR-dzoh",
-    meaning: "Thank you very much",
-    culturalNote: "Heartfelt gratitude expressed with eye contact and sincere warmth.",
-  },
-  {
-    phrase: "Czuć się jak w domu",
-    phonetic: "chootsh sheh yahk v DOH-moo",
-    meaning: "To feel right at home",
-    culturalNote: "The ultimate compliment to a host who gives everything so you feel like family.",
-  },
-  {
-    phrase: "Smacznego",
-    phonetic: "smach-NEH-goh",
-    meaning: "Enjoy your meal",
-    culturalNote: "Spoken before every meal shared across a laden table.",
-  },
-];
+import { FOUNDING_STORY_STRINGS } from "./string";
+
+export const POLISH_PHRASES = FOUNDING_STORY_STRINGS.polishPhrases;
+

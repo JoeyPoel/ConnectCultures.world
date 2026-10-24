@@ -1,5 +1,6 @@
 import React from "react";
 import { Globe, ArrowUp } from "lucide-react";
+import { FOOTER_STRINGS } from "../../constants/string";
 
 /**
  * Platform colophon and philosophical signoff footer.
@@ -19,12 +20,12 @@ export const Footer: React.FC = () => {
               <Globe className="w-4 h-4" />
             </div>
             <span className="font-serif font-bold text-lg text-monochrome-ink">
-              Connect Cultures
+              {FOOTER_STRINGS.brand}
             </span>
           </div>
 
           <p className="font-sans text-xs text-monochrome-inkMuted font-light italic">
-            Opening living rooms and sharing tables across borders.
+            {FOOTER_STRINGS.tagline}
           </p>
         </div>
 
@@ -35,12 +36,12 @@ export const Footer: React.FC = () => {
             onClick={scrollToTop}
             className="group flex items-center gap-2 px-4 py-2 rounded-full bg-monochrome-pureWhite border border-monochrome-sandstone hover:border-monochrome-ink text-xs font-mono text-monochrome-ink shadow-sm transition-all"
           >
-            <span>Return to Top</span>
+            <span>{FOOTER_STRINGS.returnToTop}</span>
             <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5 text-monochrome-ink" />
           </button>
 
           <p className="font-mono text-[10px] text-monochrome-inkMuted">
-            © {new Date().getFullYear()} ConnectCultures.world • Global Cultural Collective
+            © {new Date().getFullYear()} {FOOTER_STRINGS.copyrightSuffix}
           </p>
         </div>
       </div>
