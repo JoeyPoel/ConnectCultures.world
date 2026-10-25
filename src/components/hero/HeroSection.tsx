@@ -79,18 +79,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <InteractiveGlobe className="w-full h-full" />
         </div>
       </div>
-
-      {/* Ambient Scroll Down Indicator */}
-      <button
-        type="button"
-        onClick={() => onExploreChapter("philosophy")}
-        className="mt-6 lg:mt-0 lg:absolute lg:bottom-6 lg:left-1/2 lg:-translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-space-surface/80 border border-stars-hairline/60 text-stars-starlight/80 hover:text-earth-cyan hover:border-earth-cyan/60 backdrop-blur-md transition-all text-xs font-mono shadow-sm group pointer-events-auto z-20"
-        aria-label={HERO_STRINGS.scrollAriaLabel}
-      >
-        <span className="w-1.5 h-1.5 rounded-full bg-earth-cyan animate-pulse" />
-        <span className="tracking-widest uppercase text-[10px]">{HERO_STRINGS.scrollIndicator}</span>
-        <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform text-earth-cyan" />
-      </button>
     </section>
   );
 };

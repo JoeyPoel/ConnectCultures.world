@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import SiteLoader from "./components/common/SiteLoader";
 import SoftDivider from "./components/common/SoftDivider";
 import Navigation from "./components/layout/Navigation";
@@ -25,7 +25,6 @@ const SECTION_IDS = [
  * Dedicated to company vision, global community connections, and 1 consolidated founding journey section.
  */
 export const App: React.FC = () => {
-  const [isSiteLoaded, setIsSiteLoaded] = useState<boolean>(false);
   const activeChapterId = useScrollSpy(SECTION_IDS, 0.3);
 
   const handleNavigateToChapter = useCallback((sectionId: string) => {
@@ -42,19 +41,13 @@ export const App: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-monochrome-editorialCanvas text-monochrome-ink font-sans selection:bg-terracotta-base/35 selection:text-monochrome-vellum overflow-x-clip">
       {/* Cinematic Earth Particle Gimbal Opening Loader */}
-      <SiteLoader onLoaded={() => setIsSiteLoaded(true)} />
+      <SiteLoader />
 
-      {/* Floating Glass Navigation Header - Smoothly fades in once site loader dissolves */}
-      <div
-        className={`transition-opacity duration-1000 ease-out ${
-          isSiteLoaded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <Navigation
-          activeChapterId={activeChapterId}
-          onNavigate={handleNavigateToChapter}
-        />
-      </div>
+      {/* Floating Glass Navigation Header - Fully synchronized with page load */}
+      <Navigation
+        activeChapterId={activeChapterId}
+        onNavigate={handleNavigateToChapter}
+      />
 
       {/* Main Experience Stream */}
       <main className="relative">
