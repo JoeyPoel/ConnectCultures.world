@@ -10,27 +10,32 @@ interface InteractiveGlobeProps {
 
 /**
  * Responsive Globe Component.
- * - On Mobile (< 1024px): Renders high-resolution photorealistic Earth globe asset with
- *   atmospheric Rayleigh cyan rim bloom, subtle floating animation, and crisp zero-glitch performance.
- * - On Desktop (>= 1024px): Renders full 3D interactive TerraDusk WebGL Earth.
+ * - On Laptop / Desktop: Renders full 3D interactive TerraDusk WebGL Earth.
+ * - Never turns into an image to save memory; only falls back if unable to load WebGL.
+ * - On small mobile touch devices: Renders crisp photorealistic asset.
  */
 export const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
   className = "",
 }) => {
-  const [isDesktop, setIsDesktop] = useState<boolean>(false);
+  const [isDesktopOrLaptop, setIsDesktopOrLaptop] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    return window.innerWidth >= 768 || window.matchMedia("(pointer: fine)").matches;
+  });
 
   useEffect(() => {
-    const checkIsDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+    const checkDevice = () => {
+      setIsDesktopOrLaptop(
+        window.innerWidth >= 768 || window.matchMedia("(pointer: fine)").matches
+      );
     };
-    checkIsDesktop();
-    window.addEventListener("resize", checkIsDesktop);
-    return () => window.removeEventListener("resize", checkIsDesktop);
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
   return (
     <div className={`relative flex items-center justify-center ${className}`}>
-      {isDesktop ? (
+      {isDesktopOrLaptop ? (
         <TerraDuskGlobe className="w-full h-full" />
       ) : (
         /* Mobile Photorealistic High-Res Earth Globe */

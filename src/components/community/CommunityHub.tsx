@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
@@ -26,7 +26,13 @@ export const CommunityHub: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [contactModal, setContactModal] = useState<HubListing | null>(null);
 
-  const activeTab = TABS_DATA[activeTabIdx];
+  // Eagerly preload all tab images into browser memory to eliminate switching flash/decode latency
+  useEffect(() => {
+    TABS_DATA.forEach((tab) => {
+      const img = new Image();
+      img.src = tab.imageUrl;
+    });
+  }, []);
 
   const filteredListings = HUB_LISTINGS.filter((item) => {
     const q = searchQuery.toLowerCase().trim();
@@ -134,57 +140,67 @@ export const CommunityHub: React.FC = () => {
           </div>
 
           {/* Right Column: Visual Showcase Card */}
-          <div className="lg:col-span-7 h-[380px] sm:h-[440px] relative rounded-2xl overflow-hidden border border-monochrome-sandstone shadow-inner bg-monochrome-sandstone">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab.id}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.02 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="absolute inset-0 w-full h-full"
-              >
-                {/* Background Image */}
-                <img
-                  src={activeTab.imageUrl}
-                  alt={activeTab.title}
-                  className="w-full h-full object-cover"
-                />
+          <div className="lg:col-span-7 h-[380px] sm:h-[440px] relative rounded-2xl overflow-hidden border border-monochrome-sandstone shadow-inner bg-monochrome-ink">
+            {TABS_DATA.map((tab, idx) => {
+              const isSelected = activeTabIdx === idx;
+              return (
+                <motion.div
+                  key={tab.id}
+                  initial={false}
+                  animate={{
+                    opacity: isSelected ? 1 : 0,
+                    scale: isSelected ? 1 : 1.025,
+                  }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className={`absolute inset-0 w-full h-full ${
+                    isSelected ? "pointer-events-auto z-10" : "pointer-events-none z-0"
+                  }`}
+                  aria-hidden={!isSelected}
+                >
+                  {/* Background Image */}
+                  <img
+                    src={tab.imageUrl}
+                    alt={tab.title}
+                    loading="eager"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
 
-                {/* Dark Vignette Overlay for Text Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-monochrome-ink via-monochrome-ink/25 to-transparent" />
+                  {/* Dark Vignette Overlay for Text Legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-monochrome-ink via-monochrome-ink/30 to-transparent" />
 
-                {/* Floating Top Tag */}
-                <div className="absolute top-5 left-5 flex items-center gap-2 px-3 py-1.5 rounded-full bg-monochrome-pureWhite/90 backdrop-blur-md text-monochrome-ink font-mono text-xs font-semibold shadow-sm">
-                  <Sparkles className="w-3.5 h-3.5 text-monochrome-ink" />
-                  <span>{COMMUNITY_HUB_STRINGS.tabBadge}</span>
-                </div>
-
-                {/* Bottom Content Badge */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-monochrome-pureWhite">
-                  <span className="font-mono text-xs text-monochrome-sandstone uppercase tracking-wider block mb-1">
-                    {activeTab.category}
-                  </span>
-                  <h4 className="font-serif text-2xl sm:text-3xl font-bold mb-2 leading-tight">
-                    {activeTab.title}
-                  </h4>
-                  <p className="font-sans text-xs sm:text-sm text-monochrome-vellum/90 max-w-xl line-clamp-2 leading-relaxed mb-4">
-                    {activeTab.highlight}
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-2">
-                    {activeTab.offerings.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-1 rounded-full bg-monochrome-pureWhite/20 backdrop-blur-md text-[11px] font-mono text-monochrome-pureWhite"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  {/* Floating Top Tag */}
+                  <div className="absolute top-5 left-5 flex items-center gap-2 px-3 py-1.5 rounded-full bg-monochrome-pureWhite/90 backdrop-blur-md text-monochrome-ink font-mono text-xs font-semibold shadow-sm">
+                    <Sparkles className="w-3.5 h-3.5 text-monochrome-ink" />
+                    <span>{COMMUNITY_HUB_STRINGS.tabBadge}</span>
                   </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+
+                  {/* Bottom Content Badge */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-monochrome-pureWhite">
+                    <span className="font-mono text-xs text-monochrome-sandstone uppercase tracking-wider block mb-1">
+                      {tab.category}
+                    </span>
+                    <h4 className="font-serif text-2xl sm:text-3xl font-bold mb-2 leading-tight">
+                      {tab.title}
+                    </h4>
+                    <p className="font-sans text-xs sm:text-sm text-monochrome-vellum/90 max-w-xl line-clamp-2 leading-relaxed mb-4">
+                      {tab.highlight}
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      {tab.offerings.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-1 rounded-full bg-monochrome-pureWhite/20 backdrop-blur-md text-[11px] font-mono text-monochrome-pureWhite"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

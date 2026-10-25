@@ -32,6 +32,7 @@ export interface TerraDuskProps {
 
     speed?: number
     style?: CSSProperties
+    onError?: () => void
 }
 
 const DEFAULTS = {
@@ -397,7 +398,10 @@ export default function TerraDusk(props: TerraDuskProps) {
         const canvas = canvasRef.current
         if (!root || !canvas) return
         const g = makeGL(canvas)
-        if (!g) return
+        if (!g) {
+            propsRef.current.onError?.()
+            return
+        }
         const { gl, u } = g
 
         let W = 0, H = 0, dpr = 1
